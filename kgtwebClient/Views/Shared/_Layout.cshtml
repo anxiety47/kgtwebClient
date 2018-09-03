@@ -13,9 +13,10 @@
           .menu {padding-top: 15px;}
           .menu a {font-size: 50px;}
         }</style>*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.1/css/all.css">
+
 </head>
 <body>
-    <span style="font-size:30px;cursor:pointer" onclick="openMenu()">&#9776; Menu</span>
 
     @*<div class="navbar navbar-inverse navbar-fixed-top">
 
@@ -39,8 +40,9 @@
 
                 </div>
         </div>*@
-
-
+    <div id="navbar">
+        <span id="openMenu" onclick="openMenu()">&#9776; Menu</span>
+    </div>
     @*<div id="mySidenav" class="sidenav">   *@
     <div id="menu" class="menu">
         <a href="javascript:void(0)" class="menuCloseButton" onclick="closeMenu()">&times;</a>
@@ -48,7 +50,9 @@
             Info
             <li><a href="#">Strona KGT</a></li>
         </ul>
-        <ul> Dane
+        <ul>
+            Dane
+            <li> @Html.ActionLink("Test", "Index", "Dogs")</li>
             <li><a href="#">Psy</a></li>
             <li><a href="#">Przewodnicy</a></li>
             <li><a href="#">Treningi</a></li>
@@ -58,13 +62,18 @@
             <li><a href="#">Pozoranci</a></li>
         </ul>
     </div>
-    <div id="content" class="container body-content">
+
+
+
+    <div id="content">
+
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
         </footer>
     </div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -1,0 +1,71 @@
+﻿@using kgtwebClient.Models
+@model ListOfEmployeeInfo
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@*<div class="jumbotron"> *@
+<div class="tables">
+    <input type="text" id="dogsSearch" onkeyup="searchEmployeeByLastName()" placeholder="Search for names.." title="Type in a name">
+    <button id="button1">click</button>
+    <div>
+        <table id="dogsTable">
+            <tr>
+                <th>EmployeeID</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>City</th>
+            </tr>
+            @foreach (var item in Model.listOfEmployee)
+
+            {
+                <tr>
+                    <td>
+                        @item.EmployeeID
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.City
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+    </div>
+</div>
+<script>
+    function searchEmployeeByLastName() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("dogsSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dogsTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+             /* search by employee's last name*/
+            tdLastName = tr[i].getElementsByTagName("td")[1];  
+            /* search by employee's first name*/
+            tdFirstName = tr[i].getElementsByTagName("td")[2]; 
+            if (tdLastName || tdFirstName) {
+                if (tdLastName.innerHTML.toUpperCase().indexOf(filter) > -1 || tdFirstName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+@*
+    </div>
+
+*@
