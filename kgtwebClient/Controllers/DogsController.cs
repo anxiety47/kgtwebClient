@@ -90,16 +90,16 @@ namespace kgtwebClient.Controllers
             message.Content = new StringContent(***object-json-serialized***, 
                                                 System.Text.Encoding.UTF8, "application/json");
              */
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/?id=" + id.ToString());
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/" + id.ToString());
             var dog = new Dog
             {
-                DogID = 9,
+                DogID = 10,
                 Name = "Łapczor",
                 DateOfBirth = new DateTime(2010, 1, 1),
-                Level = 1,
-                Workmode = new List<Object>(),
+                Level = Models.Enums.DogLevel.Beginner,
+                Workmode = new List<Models.Enums.Wrappers.DogWorkmodeWrapper>(),
                 Notes = "Notatki",
-                Guide = 1
+                Guide = new Guide() //IT DOESNT WORK, IT SHOULD BE A REAL GUIDE, NOW SERVER JUST IGNORES GUIDE AND LEAVES THE OLD ONE UNCHANGED!
             };
 
             var dogSerialized = JsonConvert.SerializeObject(dog);
