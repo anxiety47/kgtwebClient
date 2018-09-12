@@ -1,5 +1,5 @@
 ﻿@using kgtwebClient.Models
-@model ListOfEmployeeInfo
+@model kgtwebClient.Models.DogsList
 
 
 @{
@@ -10,32 +10,52 @@
 @*<div class="jumbotron"> *@
 <div class="tables">
     <input type="text" id="dogsSearch" onkeyup="searchEmployeeByLastName()" placeholder="Search for names.." title="Type in a name">
-    <button id="button1">click</button>
+    @*<button id="button1" onclick="location.href='@Url.Action("DeleteDog","Dogs",new { id=7})'">delete</button>*@
     <div>
         <table id="dogsTable">
             <tr>
-                <th>EmployeeID</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>City</th>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Data urodzenia</th>
+                <th>Poziom</th>
+                <th>Tryb pracy</th>
+                <th>Notatki</th>
+                <th>Przewodnik</th>
+
+
             </tr>
-            @foreach (var item in Model.listOfEmployee)
+            @foreach (var item in Model.ListOfDogs)
 
             {
-                <tr>
-                    <td>
-                        @item.EmployeeID
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.City
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @item.DogID
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.DateOfBirth
+                </td>
+                <td>
+                    @item.Level
+                </td>
+                <td>
+                    @item.Workmode
+                </td>
+                <td>
+                    @item.Notes
+                </td>
+                <td>
+                    @item.Guide
+                </td>
+                <td style="background-color:white">
+                    <button class="deleteButton" onclick="location.href='@Url.Action("DeleteDog", "Dogs", new { id = @item.DogID })'">delete</button>
+                </td>
+                <td style="background-color:white">
+                    <button class="updateButton" onclick="location.href='@Url.Action("UpdateDog", "Dogs", new { id = @item.DogID })'">update</button>
+                </td>
+            </tr>
 
             }
 
