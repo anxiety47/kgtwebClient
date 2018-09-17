@@ -27,33 +27,36 @@
             @foreach (var item in Model.ListOfDogs)
 
             {
-            <tr>
-                <td>
+            <tr @*onclick="document.location = 'http://kgtwebclient.azurewebsites.net/Dogs/Dog/' + @item.DogID;"  *@>
+                <td class="tdOnclick">
                     @item.DogID
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.Name
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.DateOfBirth
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.Level
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.Workmode
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.Notes
                 </td>
-                <td>
+                <td class="tdOnclick">
                     @item.Guide
                 </td>
                 <td style="background-color:white">
-                    <button class="deleteButton" onclick="location.href='@Url.Action("DeleteDog", "Dogs", new { id = @item.DogID })'">delete</button>
+                    <button class="deleteButton" onclick="location.href='@Url.Action("DeleteDog", "Dogs", new { id = @item.DogID })'">usuń</button>
                 </td>
                 <td style="background-color:white">
-                    <button class="updateButton" onclick="location.href='@Url.Action("UpdateDog", "Dogs", new { id = @item.DogID })'">update</button>
+                    <button class="updateButton" onclick="location.href='@Url.Action("UpdateDog", "Dogs", new { id = @item.DogID })'">zmień</button>
+                </td>
+                <td style="background-color:white">
+                    <button class="displayButton" onclick="location.href='@Url.Action("Dog", "Dogs", new { id = @item.DogID })'">wyświetl</button>
                 </td>
             </tr>
 
@@ -83,6 +86,12 @@
             }
         }
     }
+
+    $(document).ready(function () {
+        $('#dogsTable').on("click", "td.tdOnclick", function () {
+            alert('ho ho ho');
+        });
+    });
 </script>
 
 @*

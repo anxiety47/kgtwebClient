@@ -110,14 +110,16 @@ body, html {
     position: absolute;
     top: 0;
     font-weight: 900;
-}       
+}
 
-.deleteButton {
+.deleteButton, .updateButton {
     font-size: 16px;
     padding: 12px 20px 12px 20px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
-    background-color: cornflowerblue
+    background-color: #34495e;
+    color: white
+
 }
 
 .mainPageBackground {
@@ -130,3 +132,4 @@ body, html {
     display: block;
 
 }
+

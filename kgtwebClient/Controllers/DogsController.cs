@@ -50,6 +50,33 @@ namespace kgtwebClient.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Dog(int id)
+        {
+            //client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage responseMessage = await client.GetAsync("dogs/" + id.ToString());
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+                var dog = JsonConvert.DeserializeObject<Dog>(responseData);
+
+                //return View(Employees);
+                //ViewBag.Persons = data;
+
+                
+
+               // ViewBag.RawData = responseData;
+                //ViewBag.Employees = Employees;
+
+
+                return View(dog);
+            }
+            return View();
+        }
+
         public bool DeleteDog(int? id)
         {
             //client.BaseAddress = new Uri(url);
@@ -90,10 +117,10 @@ namespace kgtwebClient.Controllers
             message.Content = new StringContent(***object-json-serialized***, 
                                                 System.Text.Encoding.UTF8, "application/json");
              */
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/?id=" + id.ToString());
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/" + id.ToString());
             var dog = new Dog
             {
-                DogID = 9,
+                DogID = 12,
                 Name = "Łapczor",
                 DateOfBirth = new DateTime(2010, 1, 1),
                 Level = 1,
