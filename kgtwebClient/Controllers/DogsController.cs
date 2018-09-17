@@ -123,10 +123,10 @@ namespace kgtwebClient.Controllers
                 DogID = 12,
                 Name = "Łapczor",
                 DateOfBirth = new DateTime(2010, 1, 1),
-                Level = 1,
-                Workmode = new List<Object>(),
+                Level = Models.Enums.DogLevel.Beginner,
+                Workmode = new List<Models.Enums.Wrappers.DogWorkmodeWrapper>(),
                 Notes = "Notatki",
-                Guide = 1
+                Guide = new Guide() //IT DOESNT WORK, IT SHOULD BE A REAL GUIDE, NOW SERVER JUST IGNORES GUIDE AND LEAVES THE OLD ONE UNCHANGED!
             };
 
             var dogSerialized = JsonConvert.SerializeObject(dog);
