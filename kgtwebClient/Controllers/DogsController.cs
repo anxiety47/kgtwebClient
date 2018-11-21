@@ -18,13 +18,12 @@ namespace kgtwebClient.Controllers
         static string url = "http://kgt.azurewebsites.net/api/";
         private static readonly HttpClient client = new HttpClient { BaseAddress = new Uri(url) };
 
-        HttpClient _client;
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
 
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Authorization =
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Request.Headers["X-MS-TOKEN-AAD-ACCESS-TOKEN"]);
         }
 
