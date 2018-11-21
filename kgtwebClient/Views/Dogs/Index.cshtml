@@ -1,5 +1,5 @@
 ﻿@using kgtwebClient.Models
-@model ListOfEmployeeInfo
+@model kgtwebClient.Models.DogsList
 
 
 @{
@@ -9,33 +9,76 @@
 
 @*<div class="jumbotron"> *@
 <div class="tables">
-    <input type="text" id="dogsSearch" onkeyup="searchEmployeeByLastName()" placeholder="Search for names.." title="Type in a name">
-    <button id="button1">click</button>
+    <input type="text" id="dogsSearch" onkeyup="searchByDogOrGuideName()" placeholder="Search for names.." title="Type in a name">
+    @*<button id="button1" onclick="location.href='@Url.Action("DeleteDog","Dogs",new { id=7})'">delete</button>*@
     <div>
         <table id="dogsTable">
             <tr>
-                <th>EmployeeID</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>City</th>
+                <th>ID</th>
+                <th>Imię</th>
+                @*<th>Data urodzenia</th>
+                <th>Poziom</th>
+                <th>Tryb pracy</th>
+                <th>Notatki</th>
+                *@
+                <th>Przewodnik</th>
+
+
             </tr>
-            @foreach (var item in Model.listOfEmployee)
+            @foreach (var item in Model.ListOfDogs)
 
             {
-                <tr>
-                    <td>
-                        @item.EmployeeID
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.City
-                    </td>
-                </tr>
+            <tr @*onclick="document.location = 'http://kgtwebclient.azurewebsites.net/Dogs/Dog/' + @item.DogID;"  *@>
+                <td class="tdOnclick">
+                    @item.DogID
+                </td>
+                <td class="tdOnclick">
+                    @item.Name
+                </td>
+                @*<td class="tdOnclick">
+            @item.DateOfBirth
+        </td>
+        <td class="tdOnclick">
+            @item.Level
+        </td>
+        <td class="tdOnclick">
+            @item.Workmode
+        </td>
+        <td class="tdOnclick">
+            @item.Notes
+        </td>
+                *@
+
+            @*TYMCZASOWE WYPEŁNIENIA DANYCH*@
+
+
+                @if (item.Name == "Łapczor")
+                {
+                    <td class="tdOnclick">Januszek Pluszaczek</td>
+                }
+                else
+                {
+                    <td class="tdOnclick">Tadeuszek Misiaczek</td>
+                }
+
+
+                @*
+        TODO: zmienić gdy dostępne
+        @(item.Guide.FirstName + " " + item.Guide.LastName)
+
+                *@
+
+                <td style="background-color:white">
+                    @*location.href='@Url.Action("DeleteDog", "Dogs", new { id = @item.DogID })'*@
+                    <button class="deleteButton" onclick="deleteDog(@item.DogID)" id="@("deleteDogButton" + item.DogID)">usuń</button>
+                </td>
+                <td style="background-color:white">
+                    <button class="updateButton" onclick="location.href='@Url.Action("UpdateDog", "Dogs", new { id = @item.DogID })'">zmień</button>
+                </td>
+                <td style="background-color:white">
+                    <button class="displayButton" onclick="location.href='@Url.Action("Dog", "Dogs", new { id = @item.DogID })'">wyświetl</button>
+                </td>
+            </tr>
 
             }
 
@@ -43,19 +86,19 @@
     </div>
 </div>
 <script>
-    function searchEmployeeByLastName() {
+    function searchByDogOrGuideName() {
         var input, filter, table, tr, td, i;
         input = document.getElementById("dogsSearch");
         filter = input.value.toUpperCase();
         table = document.getElementById("dogsTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
-             /* search by employee's last name*/
-            tdLastName = tr[i].getElementsByTagName("td")[1];  
-            /* search by employee's first name*/
-            tdFirstName = tr[i].getElementsByTagName("td")[2]; 
-            if (tdLastName || tdFirstName) {
-                if (tdLastName.innerHTML.toUpperCase().indexOf(filter) > -1 || tdFirstName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+             /* search by dog's name*/
+            tdDogName = tr[i].getElementsByTagName("td")[1];  
+            /* search by guide's  name*/
+            tdGuideName = tr[i].getElementsByTagName("td")[2]; 
+            if (tdDogName || tdGuideName) {
+                if (tdDogName.innerHTML.toUpperCase().indexOf(filter) > -1 || tdGuideName.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -63,6 +106,48 @@
             }
         }
     }
+    @* location.href='@Url.Action("DeleteDog", "Dogs", new { id = @item.DogID })' *@
+
+    function deleteDog(dogId) {
+       // var id = dogId;
+        alert("Delete dog: " + dogId);
+        //document.getElementById("disp").innerHTML = "hi";
+        $.ajax({
+            url: "@Url.Action("DeleteDog", "Dogs")",
+            method: "POST", //First change type to method here
+
+            data: {
+                id: dogId, // Second add quotes on the value.
+            },
+            success: function (response) {
+                if (response) {
+                    //var resp = jQuery.parseJSON(response);
+                    var resp = response;
+                    //console.log(resp);
+                    if (resp.success) {
+                        alert("udało się usunac psa o id: " + resp.id);
+                        //usunięcie z tabeli tr ktory zawiera button o id deleteDogButton<id>
+                        //var buttonId = "deleteDogButton" + dogId;
+                    var button = $("#deleteDogButton" + resp.id );
+
+                    var tableRow = button.closest("tr");
+                        //alert(button.text());
+                        tableRow.remove();
+                    }
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+
+        });
+    }
+
+    //$(document).ready(function () {
+    //    $('#dogsTable').on("click", "td.tdOnclick", function () {
+    //        alert('ho ho ho');
+    //    });
+    //});
 </script>
 
 @*

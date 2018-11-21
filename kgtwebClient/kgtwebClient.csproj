@@ -147,7 +147,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\Dog.cs" />
+    <Compile Include="Models\DogsList.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeInfo.cs" />
+    <Compile Include="Models\Enums\DogLevel.cs" />
+    <Compile Include="Models\Enums\DogWorkmode.cs" />
+    <Compile Include="Models\Enums\Wrappers\DogWorkmodeWrapper.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Guide.cs" />
+    <Compile Include="Models\GuideAction.cs" />
+    <Compile Include="Models\GuideEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +197,7 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\kgtwebclient - Web Deploy.pubxml" />
     <Content Include="Images\januszek.jpg" />
+    <Content Include="Images\kgt.jpg" />
     <Content Include="Scripts\all.js" />
     <Content Include="Scripts\all.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -273,6 +285,7 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="Views\Dogs\Dog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

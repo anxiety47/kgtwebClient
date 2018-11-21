@@ -1,0 +1,39 @@
+﻿@model kgtwebClient.Models.Dog
+
+@{
+    ViewBag.Title = "Dog";
+}
+
+
+<div style="margin:60px">
+    <div>
+        <h4>@Html.DisplayFor(model => model.Name)</h4>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+        </dl>
+    </div>
+    <div>
+        <img src="~/Images/januszek.jpg" height="200" width="200">
+    </div>
+</div>
+<p style="margin:60px">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DogID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
