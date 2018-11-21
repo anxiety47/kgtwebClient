@@ -17,6 +17,15 @@ namespace kgtwebClient.Controllers
         //The URL of the WEB API Service
         string url = "http://kgt.azurewebsites.net/api/employee/";
 
+        HttpClient _client;
+        protected override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", Request.Headers["X-MS-TOKEN-AAD-ACCESS-TOKEN"]);
+        }
 
         // GET: Employees
         public async Task<ActionResult> Index()
