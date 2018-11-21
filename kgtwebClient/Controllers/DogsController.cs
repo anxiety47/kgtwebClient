@@ -77,7 +77,7 @@ namespace kgtwebClient.Controllers
             return View();
         }
 
-        public bool DeleteDog(int? id)
+        public JsonResult DeleteDog(int? id)
         {
             //client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
@@ -96,12 +96,12 @@ namespace kgtwebClient.Controllers
             {
                 //wyswietlić informację
                 message.Dispose();
-                return true;
+                return Json(new { success = true, id = id.ToString() } );
             }
             else    // wiadomosc czego się nie udałos
             {
                 message.Dispose();
-                return false;
+                return Json(false);
             }
 
         }
