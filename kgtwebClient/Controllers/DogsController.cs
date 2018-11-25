@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace kgtwebClient.Controllers
 {
+    [Authorize]
     public class DogsController : Controller
     {
 
