@@ -106,17 +106,37 @@ namespace kgtwebClient.Controllers
 
         }
 
+        //TODO metody UpdateDog i Dog robią to samo -> wyrzucić środek do innej metody i wywoływać ją sobie wewnątrz
+        public async Task<ActionResult> UpdateDog(int id) {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage responseMessage = await client.GetAsync("dogs/" + id.ToString());
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+                var dog = JsonConvert.DeserializeObject<Dog>(responseData);
+                
+
+                return View(dog);
+            }
+            return View();
+        }
+            /*
+             * metoda wykonująca update -> zmienia na sztywno dane
+             * 
         public bool UpdateDog(int? id)
         {
             //client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            /* dla put(update) i post(add):
-            httpmethod.put i httpmethod.post
-            message.Content = new StringContent(***object-json-serialized***, 
-                                                System.Text.Encoding.UTF8, "application/json");
-             */
+            // dla put(update) i post(add):
+            //httpmethod.put i httpmethod.post
+            //message.Content = new StringContent(***object-json-serialized***, 
+              //                                  System.Text.Encoding.UTF8, "application/json");
+             
             HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/" + id.ToString());
             var dog = new Dog
             {
@@ -132,7 +152,7 @@ namespace kgtwebClient.Controllers
             var dogSerialized = JsonConvert.SerializeObject(dog);
             
 
-            message.Content = new StringContent(dogSerialized /*id.ToString()*/, System.Text.Encoding.UTF8, "application/json");
+            message.Content = new StringContent(dogSerialized, System.Text.Encoding.UTF8, "application/json"); //dog serialized id.ToString()
             HttpResponseMessage responseMessage = client.SendAsync(message).Result;
             if (responseMessage.IsSuccessStatusCode)    //200 OK
             {
@@ -147,5 +167,6 @@ namespace kgtwebClient.Controllers
             }
 
         }
+    */
     }
 }

@@ -1,0 +1,48 @@
+﻿@model kgtwebClient.Models.Dog
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div style="margin:100px">
+        <div style="float:left">
+            @Html.DisplayFor(model => model.Name)
+            <table>
+                <tr>
+                    <td>Imię</td>
+                    <td><input type="text" class="dogUpdate" name="updateDogName" value="@Html.DisplayFor(model => model.Name)"></td>
+                </tr>
+                <tr>
+                    <td>Data urodzenia</td>
+                    <td><input type="text" class="dogUpdate" name="updateDogLevel" value="@Html.DisplayFor(model => model.DateOfBirth)"></td>
+                </tr>
+                <tr>
+                    <td>Poziom</td>
+                    <td><input type="text" class="dogUpdate" name="updateDogLevel" value="@Html.DisplayFor(model => model.Level)"></td>
+                </tr>
+                <tr>
+                    <td>Tryb pracy</td>
+                    <td><input type="text" class="dogUpdate" name="updateDogLevel" value="@Html.DisplayFor(model => model.Workmode)"></td>
+                </tr>
+                <tr>
+                    <td>Notatki</td>
+                    <td><input type="text" class="dogUpdate" name="updateDogNotes" value="@Html.DisplayFor(model => model.Notes)"></td>
+                </tr>
+                ...
+            </table>
+        </div>
+        <div class="picture">
+            <img src="~/Images/januszek.jpg" height="400" width="400">
+        </div>
+    </div>
+</body>
+</html>

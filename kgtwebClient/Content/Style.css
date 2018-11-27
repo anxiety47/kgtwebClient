@@ -119,9 +119,9 @@ body, html {
     padding: 12px 20px 12px 20px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
+    max-width: 100px;
     /*background-color: #34495e;*/
     color: white
-
 }
 
 .deleteButton {
@@ -146,3 +146,12 @@ body, html {
 
 }
 
+.picture {
+    padding-left: 50%
+}
+
+img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+}
