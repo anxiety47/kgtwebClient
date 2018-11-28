@@ -1,5 +1,4 @@
 ﻿using kgtwebClient.Models.Enums;
-using kgtwebClient.Models.Enums.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,8 +21,7 @@ namespace kgtwebClient.Models
         public DateTime DateOfBirth { get; set; }
         [Required]
         public DogLevel Level { get; set; }
-        [Required]
-        public List<DogWorkmodeWrapper> Workmode { get; set; }
+        public DogWorkmode? Workmodes { get; set; }
         public string Notes { get; set; }
         //[Required]
         public virtual Guide Guide { get; set; }

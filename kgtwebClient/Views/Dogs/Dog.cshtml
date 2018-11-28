@@ -25,11 +25,11 @@
                 @Html.DisplayFor(model => model.Level)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Workmode)
+                @Html.DisplayNameFor(model => model.Workmodes)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Workmode)
+                @Html.DisplayFor(model => model.Workmodes)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.DateOfBirth)
@@ -54,7 +54,7 @@
     </div>
 </div>
 <p style="margin:60px">
-    @Html.ActionLink("UpdateDog", "UpdateDog", new {id = Model.DogID}) ||||
+    @Html.ActionLink("--Update Dog--", "UpdateDog", "Dogs", new {id = Model.DogID}, null)
 
 
     @Html.ActionLink("Edit", "Edit", new { id = Model.DogID }) |

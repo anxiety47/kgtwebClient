@@ -76,6 +76,55 @@ namespace kgtwebClient.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public async Task<ActionResult> AddDog()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult /*Task<ActionResult>*/ AddDog(Dog addedDog)
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            /* dla put i post:
+            httpmethod.put i httpmethod.post
+            message.Content = new StringContent(***object-json-serialized***, 
+                                                System.Text.Encoding.UTF8, "application/json");
+             */
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress + "dogs/" + addedDog.DogID.ToString());
+
+            var dog = new Dog
+            {
+                DogID = 1,
+                Name = addedDog.Name,
+                DateOfBirth = addedDog.DateOfBirth,
+                Level = addedDog.Level,
+                Workmodes = addedDog.Workmodes,
+                Notes = addedDog.Notes,
+                Guide = new Guide() //IT DOESNT WORK, IT SHOULD BE A REAL GUIDE, NOW SERVER JUST IGNORES GUIDE AND LEAVES THE OLD ONE UNCHANGED!
+            };
+
+            var dogSerialized = JsonConvert.SerializeObject(dog);
+
+            message.Content = new StringContent(addedDog.DogID.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage responseMessage = client.SendAsync(message).Result;
+            if (responseMessage.IsSuccessStatusCode)    //200 OK
+            {
+                //wyswietlić informację
+                message.Dispose();
+                return Json(new { success = true , responseMessage.Content});
+                //return View("Dog", responseMessage.Content);
+            }
+            else    // wiadomosc czego się nie udałos
+            {
+                message.Dispose();
+                return Json(false);
+            }
+
+        }
 
         public JsonResult DeleteDog(int? id)
         {
@@ -106,7 +155,8 @@ namespace kgtwebClient.Controllers
 
         }
 
-        //TODO metody UpdateDog i Dog robią to samo -> wyrzucić środek do innej metody i wywoływać ją sobie wewnątrz
+        //TODO metody UpdateDog(ta niżej) i Dog robią to samo -> wyrzucić środek do innej metody i wywoływać ją sobie wewnątrz
+        [HttpGet]
         public async Task<ActionResult> UpdateDog(int id) {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -123,10 +173,9 @@ namespace kgtwebClient.Controllers
             }
             return View();
         }
-            /*
-             * metoda wykonująca update -> zmienia na sztywno dane
-             * 
-        public bool UpdateDog(int? id)
+
+        [HttpPost]
+        public bool UpdateDog(/*int? id*/Dog updatedDog)    //? -> może być null
         {
             //client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
@@ -137,15 +186,15 @@ namespace kgtwebClient.Controllers
             //message.Content = new StringContent(***object-json-serialized***, 
               //                                  System.Text.Encoding.UTF8, "application/json");
              
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/" + id.ToString());
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress + "dogs/" + updatedDog.DogID.ToString());
             var dog = new Dog
             {
-                DogID = 12,
-                Name = "Łapczor",
-                DateOfBirth = new DateTime(2010, 1, 1),
-                Level = Models.Enums.DogLevel.Beginner,
-                Workmode = new List<Models.Enums.Wrappers.DogWorkmodeWrapper>(),
-                Notes = "Notatki",
+                DogID = updatedDog.DogID,
+                Name = updatedDog.Name,
+                DateOfBirth = updatedDog.DateOfBirth,
+                Level = updatedDog.Level,
+                Workmodes = updatedDog.Workmodes,
+                Notes = updatedDog.Notes,
                 Guide = new Guide() //IT DOESNT WORK, IT SHOULD BE A REAL GUIDE, NOW SERVER JUST IGNORES GUIDE AND LEAVES THE OLD ONE UNCHANGED!
             };
 
@@ -160,13 +209,13 @@ namespace kgtwebClient.Controllers
                 message.Dispose();
                 return true;
             }
-            else    // wiadomosc czego się nie udałos
+            else    // wiadomosc czego się nie udało
             {
                 message.Dispose();
                 return false;
             }
 
         }
-    */
+    
     }
 }

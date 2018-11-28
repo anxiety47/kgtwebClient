@@ -147,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EnumHelpers.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\Dog.cs" />
     <Compile Include="Models\DogsList.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Models\EmployeeInfo.cs" />
     <Compile Include="Models\Enums\DogLevel.cs" />
     <Compile Include="Models\Enums\DogWorkmode.cs" />
-    <Compile Include="Models\Enums\Wrappers\DogWorkmodeWrapper.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Guide.cs" />
     <Compile Include="Models\GuideAction.cs" />
@@ -198,6 +198,7 @@
     <None Include="Properties\PublishProfiles\kgtwebclient - Web Deploy.pubxml" />
     <Content Include="Images\januszek.jpg" />
     <Content Include="Images\kgt.jpg" />
+    <Content Include="Images\piesek1.jpg" />
     <Content Include="Scripts\all.js" />
     <Content Include="Scripts\all.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -287,6 +288,7 @@
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Dogs\Dog.cshtml" />
     <Content Include="Views\Dogs\UpdateDog.cshtml" />
+    <Content Include="Views\Dogs\AddDog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
