@@ -93,11 +93,13 @@ namespace kgtwebClient.Controllers
             message.Content = new StringContent(***object-json-serialized***, 
                                                 System.Text.Encoding.UTF8, "application/json");
              */
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress + "dogs/" + addedDog.DogID.ToString());
+
+            // TODO zamienić kolejność poniższych linii
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress + "dogs/");
 
             var dog = new Dog
             {
-                DogID = 1,
+                //DogID = 1,
                 Name = addedDog.Name,
                 DateOfBirth = addedDog.DateOfBirth,
                 Level = addedDog.Level,
@@ -108,7 +110,7 @@ namespace kgtwebClient.Controllers
 
             var dogSerialized = JsonConvert.SerializeObject(dog);
 
-            message.Content = new StringContent(addedDog.DogID.ToString(), System.Text.Encoding.UTF8, "application/json");
+            message.Content = new StringContent(dogSerialized, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage responseMessage = client.SendAsync(message).Result;
             if (responseMessage.IsSuccessStatusCode)    //200 OK
@@ -208,6 +210,8 @@ namespace kgtwebClient.Controllers
                 //wyswietlić informację
                 message.Dispose();
                 return true;
+                //wywolać metodę Dog zamiast zwracać true
+                
             }
             else    // wiadomosc czego się nie udało
             {
